@@ -33,7 +33,7 @@ def generate_response(prompt):
 
 
 def get_text():
-    input_text = st.text_input("Chat Bot:", "Hey whatssup?", key='input')
+    input_text = st.text_input("Enter message:", "Hey whatssup?", key='input')
     return input_text
 
 
