@@ -9,11 +9,6 @@ import json
 # Ctrl+C to stop the program
 # creating a function to generate response
 
-# Reading the JSON file to fetch token
-# with open('credentials.json', 'r') as f:
-#     file = json.load(f)
-#     token = file['output']
-
 st.set_page_config(layout="wide", page_title='Personal ChatBot')
 
 
@@ -24,9 +19,6 @@ cookies = sign.login()
 # Save cookies to usercookies/<email>.json
 sign.saveCookies()
 
-
-
-# changing the ui of app
 
 # committing the changes onto app
 with open('style.css') as f:
@@ -40,9 +32,6 @@ def generate_response(prompt):
     # Create a ChatBot
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())  # or cookie_path="usercookies/<email>.json"
     response = (chatbot.chat(prompt))
-    # os.environ['_BARD_API_KEY'] = token
-    # bard = Bard()
-    # response = bard.get_answer(prompt)
     return response
 
 
