@@ -1,5 +1,6 @@
 
-
+from hugchat import hugchat
+from hugchat.login import Login
 import streamlit as st
 from streamlit_chat import message
 from bardapi import Bard
@@ -9,11 +10,21 @@ import json
 # creating a function to generate response
 
 # Reading the JSON file to fetch token
-with open('credentials.json', 'r') as f:
-    file = json.load(f)
-    token = file['output']
+# with open('credentials.json', 'r') as f:
+#     file = json.load(f)
+#     token = file['output']
 
 st.set_page_config(layout="wide", page_title='Personal ChatBot')
+
+
+# Log in to huggingface and grant authorization to huggingchat
+sign = Login("baahubali932@gmail.com","Shubh@12")
+cookies = sign.login()
+
+# Save cookies to usercookies/<email>.json
+sign.saveCookies()
+
+
 
 # changing the ui of app
 
@@ -26,10 +37,13 @@ print(st.session_state)
 
 
 def generate_response(prompt):
-    os.environ['_BARD_API_KEY'] = token
-    bard = Bard()
-    response = bard.get_answer(prompt)
-    return response['content']
+    # Create a ChatBot
+    chatbot = hugchat.ChatBot(cookies=cookies.get_dict())  # or cookie_path="usercookies/<email>.json"
+    response = (chatbot.chat(prompt))
+    # os.environ['_BARD_API_KEY'] = token
+    # bard = Bard()
+    # response = bard.get_answer(prompt)
+    return response
 
 
 def get_text():
